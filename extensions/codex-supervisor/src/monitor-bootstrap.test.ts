@@ -1,7 +1,10 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { bootstrapCodexSafetyMonitor } from "./monitor-bootstrap.js";
+import {
+  bootstrapCodexSafetyMonitor,
+  bootstrapOptionsFromEnvironment,
+} from "./monitor-bootstrap.js";
 import type { CodexJsonRpcConnection } from "./types.js";
 
 const cleanup: string[] = [];
@@ -13,6 +16,36 @@ afterEach(async () => {
 });
 
 describe("bootstrapCodexSafetyMonitor", () => {
+  it("requires monitor authentication and passes its environment key through", () => {
+    expect(() =>
+      bootstrapOptionsFromEnvironment({
+        OPENCLAW_CODEX_MONITOR_URL: "ws://127.0.0.1:18790",
+        OPENCLAW_CODEX_MONITOR_WORKSPACE: "/workspace",
+        OPENCLAW_CODEX_MONITOR_THREAD_FILE: "/state/thread-id",
+        OPENCLAW_CODEX_MONITOR_PROMPT_FILE: "/state/prompt.md",
+        OPENCLAW_CODEX_MONITOR_CONTINUATION_FILE: "/state/continuation.md",
+      }),
+    ).toThrow("OPENCLAW_CODEX_MONITOR_TOKEN must be set");
+
+    expect(
+      bootstrapOptionsFromEnvironment({
+        OPENCLAW_CODEX_MONITOR_URL: "ws://127.0.0.1:18790",
+        OPENCLAW_CODEX_MONITOR_TOKEN: "monitor-capability",
+        OPENCLAW_CODEX_MONITOR_WORKSPACE: "/workspace",
+        OPENCLAW_CODEX_MONITOR_THREAD_FILE: "/state/thread-id",
+        OPENCLAW_CODEX_MONITOR_PROMPT_FILE: "/state/prompt.md",
+        OPENCLAW_CODEX_MONITOR_CONTINUATION_FILE: "/state/continuation.md",
+      }),
+    ).toEqual({
+      url: "ws://127.0.0.1:18790",
+      authTokenEnv: "OPENCLAW_CODEX_MONITOR_TOKEN",
+      workspace: "/workspace",
+      threadFile: "/state/thread-id",
+      promptFile: "/state/prompt.md",
+      continuationFile: "/state/continuation.md",
+    });
+  });
+
   it("creates, records, and starts a fresh monitor thread", async () => {
     const root = await fs.mkdtemp(path.join(process.env.TMPDIR ?? "/tmp", "codex-monitor-"));
     cleanup.push(root);
@@ -40,16 +73,21 @@ describe("bootstrapCodexSafetyMonitor", () => {
       close: async () => undefined,
     };
 
+    let connectedEndpoint: unknown;
     await expect(
       bootstrapCodexSafetyMonitor(
         {
           url: "ws://127.0.0.1:18790",
+          authTokenEnv: "OPENCLAW_CODEX_MONITOR_TOKEN",
           workspace: root,
           threadFile,
           promptFile,
           continuationFile,
         },
-        async () => connection,
+        async (endpoint) => {
+          connectedEndpoint = endpoint;
+          return connection;
+        },
       ),
     ).resolves.toEqual({ threadId: "thread-monitor", startedTurn: true });
     await expect(fs.readFile(threadFile, "utf8")).resolves.toBe("thread-monitor\n");
@@ -58,6 +96,12 @@ describe("bootstrapCodexSafetyMonitor", () => {
       "thread/persistentMode/set",
       "turn/start",
     ]);
+    expect(connectedEndpoint).toEqual({
+      id: "safety-monitor",
+      transport: "websocket",
+      url: "ws://127.0.0.1:18790",
+      authTokenEnv: "OPENCLAW_CODEX_MONITOR_TOKEN",
+    });
     expect(calls[0]?.params).toMatchObject({
       approvalPolicy: "never",
       sandbox: "read-only",

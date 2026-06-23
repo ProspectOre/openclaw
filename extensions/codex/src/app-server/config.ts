@@ -130,6 +130,8 @@ export type CodexAppServerNetworkProxyConfig = {
   mode?: CodexAppServerNetworkProxyMode;
   domains?: Record<string, CodexAppServerNetworkProxyDomainPermission>;
   unixSockets?: Record<string, CodexAppServerNetworkProxyUnixSocketPermission>;
+  /** Host paths that sandboxed Codex tools must not be able to read. */
+  denyRead?: string[];
   proxyUrl?: string;
   socksUrl?: string;
   enableSocks5?: boolean;
@@ -332,7 +334,10 @@ const codexAppServerNetworkProxySchema = z
     baseProfile: z.enum(["read-only", "workspace"]).optional(),
     mode: z.enum(["limited", "full"]).optional(),
     domains: z.record(z.string(), codexAppServerNetworkProxyDomainPermissionSchema).optional(),
-    unixSockets: z.record(z.string(), codexAppServerNetworkProxyUnixSocketPermissionSchema).optional(),
+    unixSockets: z
+      .record(z.string(), codexAppServerNetworkProxyUnixSocketPermissionSchema)
+      .optional(),
+    denyRead: z.array(z.string().trim().min(1)).optional(),
     proxyUrl: z.string().trim().min(1).optional(),
     socksUrl: z.string().trim().min(1).optional(),
     enableSocks5: z.boolean().optional(),
@@ -934,12 +939,16 @@ function resolveCodexAppServerNetworkProxy(
     dangerously_allow_non_loopback_proxy: config.dangerouslyAllowNonLoopbackProxy,
     dangerously_allow_all_unix_sockets: config.dangerouslyAllowAllUnixSockets,
   });
+  const denyRead = Array.from(
+    new Set((config.denyRead ?? []).map((path) => path.trim()).filter(Boolean)),
+  ).sort();
   const profile = {
     filesystem: {
       ":minimal": "read",
       ":project_roots": {
         ".": fileSystemMode,
       },
+      ...Object.fromEntries(denyRead.map((path) => [path, "none"])),
     },
     network: networkConfig,
   };

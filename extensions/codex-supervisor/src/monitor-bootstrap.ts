@@ -5,6 +5,7 @@ import type { CodexJsonRpcConnection } from "./types.js";
 
 export type CodexSafetyMonitorBootstrapOptions = {
   url: string;
+  authTokenEnv?: string;
   workspace: string;
   threadFile: string;
   promptFile: string;
@@ -109,6 +110,7 @@ export async function bootstrapCodexSafetyMonitor(
     id: "safety-monitor",
     transport: "websocket",
     url: opts.url,
+    ...(opts.authTokenEnv ? { authTokenEnv: opts.authTokenEnv } : {}),
   });
   try {
     const ensured = await ensureThread(connection, opts, developerInstructions);
@@ -153,8 +155,11 @@ export function bootstrapOptionsFromEnvironment(
     }
     return value;
   };
+  const monitorTokenEnv = "OPENCLAW_CODEX_MONITOR_TOKEN";
+  required(monitorTokenEnv);
   return {
     url: required("OPENCLAW_CODEX_MONITOR_URL"),
+    authTokenEnv: monitorTokenEnv,
     workspace: required("OPENCLAW_CODEX_MONITOR_WORKSPACE"),
     threadFile: required("OPENCLAW_CODEX_MONITOR_THREAD_FILE"),
     promptFile: required("OPENCLAW_CODEX_MONITOR_PROMPT_FILE"),

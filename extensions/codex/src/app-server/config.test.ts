@@ -162,6 +162,11 @@ describe("Codex app-server config", () => {
               " /tmp/mock-proxy.sock ": "allow",
               "/tmp/blocked.sock": "none",
             },
+            denyRead: [
+              " /home/dev-user/.codex ",
+              "/home/dev-user/.local/share/openclaw-codex-supervisor",
+              "/home/dev-user/.codex",
+            ],
             proxyUrl: "http://127.0.0.1:3128",
             socksUrl: "socks5h://127.0.0.1:8081",
             enableSocks5: true,
@@ -190,6 +195,8 @@ describe("Codex app-server config", () => {
               ":project_roots": {
                 ".": "write",
               },
+              "/home/dev-user/.codex": "none",
+              "/home/dev-user/.local/share/openclaw-codex-supervisor": "none",
             },
             network: {
               enabled: true,

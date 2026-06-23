@@ -227,6 +227,10 @@
                   "enum": ["allow", "none"]
                 }
               },
+              "denyRead": {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 }
+              },
               "proxyUrl": { "type": "string" },
               "socksUrl": { "type": "string" },
               "enableSocks5": { "type": "boolean" },
@@ -471,6 +475,11 @@
     "appServer.networkProxy.unixSockets": {
       "label": "Unix Sockets",
       "help": "Unix socket allow and none rules for Codex sandboxed networking.",
+      "advanced": true
+    },
+    "appServer.networkProxy.denyRead": {
+      "label": "Unreadable Paths",
+      "help": "Host paths masked from Codex sandboxed tools in the generated permissions profile.",
       "advanced": true
     },
     "appServer.networkProxy.proxyUrl": {
