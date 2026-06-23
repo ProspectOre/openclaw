@@ -484,6 +484,70 @@ const CrestodianSchema = z
   .strict()
   .optional();
 
+function isHttpsUrl(value: string): boolean {
+  try {
+    return new URL(value).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+const CatalogRefreshSchema = z
+  .object({
+    onStartup: z.union([z.literal("never"), z.literal("always"), z.literal("if-stale")]).optional(),
+    interval: z.string().optional(),
+    jitter: z.string().optional(),
+    timeout: z.string().optional(),
+    maxStale: z.string().optional(),
+  })
+  .strict();
+
+const CatalogVerificationSchema = z
+  .object({
+    mode: z.literal("unsigned"),
+  })
+  .strict();
+
+const CatalogFeedProfileSchema = z
+  .object({
+    url: z
+      .string()
+      .url()
+      .refine((value) => isHttpsUrl(value), "Expected https:// URL"),
+    refresh: CatalogRefreshSchema.optional(),
+    verification: CatalogVerificationSchema.optional(),
+  })
+  .strict();
+
+const CatalogSourceProfileSchema = z.union([
+  z
+    .object({
+      type: z.literal("npm"),
+      registry: z.string().url().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      type: z.literal("clawhub"),
+      baseUrl: z.string().url().optional(),
+    })
+    .strict(),
+  z
+    .object({
+      type: z.literal("git"),
+      baseUrl: z.string().min(1).optional(),
+    })
+    .strict(),
+]);
+
+const CatalogSchema = z
+  .object({
+    feeds: z.record(z.string().min(1), CatalogFeedProfileSchema).optional(),
+    sources: z.record(z.string().min(1), CatalogSourceProfileSchema).optional(),
+  })
+  .strict()
+  .optional();
+
 const CommitmentsSchema = z
   .object({
     enabled: z.boolean().optional(),
@@ -739,6 +803,7 @@ export const OpenClawSchema = z
       .strict()
       .optional(),
     secrets: SecretsConfigSchema,
+    catalog: CatalogSchema,
     auth: z
       .object({
         profiles: z

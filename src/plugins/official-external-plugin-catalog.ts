@@ -930,6 +930,25 @@ export function resolveOfficialExternalPluginInstall(
   };
 }
 
+export function resolveOfficialExternalPluginCatalogProfileConfigFromConfig(config?: {
+  catalog?: OfficialExternalPluginCatalogProfileConfig;
+}): OfficialExternalPluginCatalogProfileConfig | undefined {
+  return config?.catalog;
+}
+
+export async function loadConfiguredHostedOfficialExternalPluginCatalogEntries(
+  config: { catalog?: OfficialExternalPluginCatalogProfileConfig } | undefined,
+  params?: Omit<
+    Parameters<typeof loadHostedOfficialExternalPluginCatalogEntries>[0],
+    "catalogConfig"
+  >,
+): Promise<HostedOfficialExternalPluginCatalogLoadResult> {
+  return await loadHostedOfficialExternalPluginCatalogEntries({
+    ...params,
+    catalogConfig: resolveOfficialExternalPluginCatalogProfileConfigFromConfig(config),
+  });
+}
+
 export function listOfficialExternalPluginCatalogEntries(): OfficialExternalPluginCatalogEntry[] {
   return dedupeOfficialExternalPluginCatalogEntries(bundledOfficialExternalPluginCatalogEntries());
 }

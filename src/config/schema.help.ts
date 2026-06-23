@@ -6,6 +6,24 @@ export const FIELD_HELP: Record<string, string> = {
   meta: "Metadata fields automatically maintained by OpenClaw to record write/version history for this config file. Keep these values system-managed and avoid manual edits unless debugging migration history.",
   "meta.lastTouchedVersion": "Auto-set when OpenClaw writes the config.",
   "meta.lastTouchedAt": "ISO timestamp of the last config write (auto-set).",
+  catalog:
+    "Hosted catalog feed and local package source profile settings. Feeds provide package selection and governance metadata, while sources define the local registries or hosts that install candidates may reference.",
+  "catalog.feeds":
+    "Named hosted feed profiles. The default public profile can be used as shipped, and deployments can add or override profiles to point OpenClaw at their effective feed endpoint.",
+  "catalog.feeds.*.url":
+    "HTTPS URL for the hosted catalog feed profile. Remote feed documents cannot introduce new registry domains or credentials; they only reference locally configured sources by name.",
+  "catalog.feeds.*.refresh":
+    "Lifecycle-owned refresh preferences for this feed, such as startup behavior, interval, jitter, timeout, and max-stale windows. These settings are parsed now and used by the scheduled refresh implementation later.",
+  "catalog.feeds.*.verification":
+    "Feed authenticity policy. This slice accepts only unsigned HTTPS feeds; signed verification is added when envelope enforcement is wired.",
+  "catalog.sources":
+    "Named package source profiles that feed entries can reference using sourceRef. Keep credentials and registry endpoints local so remote feeds cannot bootstrap trust roots.",
+  "catalog.sources.*.type":
+    "Package source profile type: npm, clawhub, or git. The type determines which installer contract a feed candidate may use.",
+  "catalog.sources.*.registry":
+    "npm registry URL for an npm source profile. Use this for public npm, private npm, or enterprise npm-compatible registries.",
+  "catalog.sources.*.baseUrl":
+    "Base URL or host path for ClawHub and Git source profiles. Git profiles should require immutable commit candidates when installation support is wired.",
   env: "Environment import and override settings used to supply runtime variables to the gateway process. Use this section to control shell-env loading and explicit variable injection behavior.",
   "env.shellEnv":
     "Shell environment import controls for loading variables from your login shell during startup. Keep this enabled when you depend on profile-defined secrets or PATH customizations.",

@@ -8,6 +8,7 @@ import type { ApprovalsConfig } from "./types.approvals.js";
 import type { AuthConfig } from "./types.auth.js";
 import type { DiagnosticsConfig, LoggingConfig, SessionConfig, WebConfig } from "./types.base.js";
 import type { BrowserConfig } from "./types.browser.js";
+import type { CatalogConfig } from "./types.catalog.js";
 import type { ChannelsConfig } from "./types.channels.js";
 import type { CliConfig } from "./types.cli.js";
 import type { CommitmentsConfig } from "./types.commitments.js";
@@ -176,6 +177,8 @@ export type OpenClawConfig = {
   };
   /** Secret providers, defaults, and ref-resolution settings. */
   secrets?: SecretsConfig;
+  /** Hosted catalog feed and local package source profile configuration. */
+  catalog?: CatalogConfig;
   /** Skill loading and bundled skill configuration. */
   skills?: SkillsConfig;
   /** Plugin registry/install/runtime configuration. */
