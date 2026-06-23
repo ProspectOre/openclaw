@@ -940,15 +940,15 @@ function resolveCodexAppServerNetworkProxy(
     dangerously_allow_all_unix_sockets: config.dangerouslyAllowAllUnixSockets,
   });
   const denyRead = Array.from(
-    new Set((config.denyRead ?? []).map((path) => path.trim()).filter(Boolean)),
-  ).sort();
+    new Set((config.denyRead ?? []).map((entry) => entry.trim()).filter(Boolean)),
+  ).toSorted();
   const profile = {
     filesystem: {
       ":minimal": "read",
       ":project_roots": {
         ".": fileSystemMode,
       },
-      ...Object.fromEntries(denyRead.map((path) => [path, "none"])),
+      ...Object.fromEntries(denyRead.map((entry) => [entry, "none"])),
     },
     network: networkConfig,
   };
