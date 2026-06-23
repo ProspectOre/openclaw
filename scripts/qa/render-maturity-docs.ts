@@ -676,6 +676,8 @@ function renderMaturityScorecard({
     "",
     `The current scorecard covers ${scores.counts.active_surfaces} surfaces and ${scores.counts.category_scores} capability areas.`,
     "",
+    "For the release-stability and LTS goals behind these scores, see [Taxonomy and Maturity](/reference/maturity-tests).",
+    "",
     "## Overall scores",
     "",
     ...markdownTable([

@@ -1655,6 +1655,15 @@
             ]
           },
           {
+            "tab": "Maturity",
+            "groups": [
+              {
+                "group": "Maturity docs",
+                "pages": ["maturity/scorecard", "maturity/taxonomy", "reference/maturity-tests"]
+              }
+            ]
+          },
+          {
             "tab": "Reference",
             "groups": [
               {
