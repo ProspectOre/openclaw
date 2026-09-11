@@ -1,6 +1,6 @@
 ---
 name: openclaw-debugging
-description: Debug OpenClaw model, provider, tool-surface, code-mode, streaming, and live/Crabbox behavior by choosing the right logs, probes, and proof path before changing code.
+description: "Debug OpenClaw model, provider, tool, or live behavior with targeted logs and probes."
 ---
 
 # OpenClaw Debugging

@@ -1,6 +1,6 @@
 ---
 name: crabbox
-description: Use the Crabbox wrapper for OpenClaw remote validation across Linux, macOS, Windows, and WSL2, including delegated Blacksmith Testbox proof. Report the actual provider and id.
+description: "Run OpenClaw remote validation through Crabbox/Testbox and report the provider and run id."
 ---
 
 # Crabbox

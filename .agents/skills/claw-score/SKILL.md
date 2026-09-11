@@ -1,6 +1,6 @@
 ---
 name: claw-score
-description: Audit or refresh OpenClaw maturity scorecard docs from root taxonomy, maturity scores, and QA evidence artifacts without using maintainer discrawl data or committed inventory reports.
+description: "Audit or refresh the OpenClaw maturity scorecard from current taxonomy and QA evidence."
 ---
 
 # claw-score
