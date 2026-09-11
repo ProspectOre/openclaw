@@ -1,6 +1,6 @@
 ---
 name: control-ui-e2e
-description: Use when testing, fixing, or extending the OpenClaw Control UI GUI with Vitest + Playwright end-to-end checks, mocked Gateway WebSocket flows, mocked dashboard runs, screenshots/videos, or agent-verifiable browser proof.
+description: "Test or debug OpenClaw Control UI browser flows with Playwright and mocked Gateway data."
 ---
 
 # Control UI E2E

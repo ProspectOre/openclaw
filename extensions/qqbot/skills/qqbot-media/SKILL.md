@@ -1,6 +1,6 @@
 ---
 name: qqbot-media
-description: QQBot rich media send and receive support. Use <qqmedia> tags to send image, voice, video, or file attachments, with the media type inferred from the file extension.
+description: Send and receive QQBot images, audio, video, and files with qqmedia tags.
 metadata: { "openclaw": { "emoji": "📸", "requires": { "config": ["channels.qqbot"] } } }
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: release-openclaw-announcement
-description: "Draft or post OpenClaw beta/stable Discord release announcements from changelog, GitHub release, registry, and validation evidence. Use when announcing a beta, stable release, release candidate, or asking what users should test after an OpenClaw release."
+description: "Draft or post OpenClaw beta/stable release announcements from verified release evidence."
 ---
 
 # OpenClaw Release Announcement

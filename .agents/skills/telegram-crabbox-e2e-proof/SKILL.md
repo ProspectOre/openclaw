@@ -1,6 +1,6 @@
 ---
 name: telegram-crabbox-e2e-proof
-description: Use when reviewing, reproducing, or proving OpenClaw Telegram behavior with a real Telegram user on Crabbox, including PR review workflows that need an agent-controlled Telegram Desktop recording, TDLib user-driver commands, Convex-leased credentials, WebVNC observation, and motion-trimmed artifacts.
+description: "Prove OpenClaw Telegram behavior with a real user flow on Crabbox and visual evidence."
 ---
 
 # Telegram Crabbox E2E Proof

@@ -1,6 +1,6 @@
 ---
 name: discord-user-post
-description: Post an approved message as the logged-in Discord user through the Discord desktop app. Use for release announcements or other direct user-authored Discord posts; not for OpenClaw channel sends, bots, webhooks, relays, agent sessions, or archive search.
+description: Post an explicitly approved user-authored release or other message in Discord.
 ---
 
 # Discord User Post
