@@ -2,6 +2,11 @@
 
 This file is the detailed companion to the root `AGENTS.md`. Read only the section needed for the task; the root file is the startup router.
 
+## Dependency evidence
+
+- Inspect dependency source, docs, or types directly when feasible; wrappers, memory, and API/default/error/timing guesses are not contract proof.
+- For Codex protocol/runtime work, the acting agent must personally inspect sibling `../codex` source for the exact behavior before a verdict, comment, approval, merge recommendation, code change, or proof-sufficiency claim. If missing, clone `https://github.com/openai/codex.git` there first. Subagent reports, PR text, OpenClaw wrappers, generated schemas, memory, and prior bot reviews do not satisfy this gate. Cite the Codex files/lines checked; without direct inspection, report the missing evidence rather than a Codex verdict.
+
 ## ClawSweeper Review Policy
 
 - OpenClaw-specific review rules live here; generic ClawSweeper prompts stay repo-agnostic.

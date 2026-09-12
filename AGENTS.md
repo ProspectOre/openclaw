@@ -24,6 +24,7 @@ Skills own workflows; this file owns hard policy and routing. Skill frontmatter 
 Read only the section of `AGENTS.policy.md` that matches the task:
 
 - Review, triage, or maintainer operations → `ClawSweeper Review Policy` and `GitHub / PRs`
+- Dependency-backed behavior or Codex protocol/runtime work → `Dependency evidence`
 - Ownership, config, storage, protocol, provider, or runtime changes → `Architecture`
 - Test/build/check selection → `Commands` and `Validation`
 - Implementation or regression work → `Code` and `Tests`
