@@ -1,6 +1,6 @@
 ---
 name: discord-user-post
-description: Post an explicitly approved user-authored release or other message in Discord.
+description: Post an explicitly approved message through the user's logged-in Discord desktop session, never a bot or webhook.
 ---
 
 # Discord User Post
