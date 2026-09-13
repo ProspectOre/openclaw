@@ -20,7 +20,7 @@ This directory owns docs authoring, Mintlify link rules, and docs i18n policy.
 
 - Classify each page before editing. OpenClaw's non-exhaustive page types include overview, quickstart, topic, guide, API/SDK/CLI reference, testing, troubleshooting, and governance; use `.agents/skills/technical-documentation/references/openclaw.md` for their definitions and shapes.
 - Put the recommended path, safe setup, smallest reliable verification, and common failures before exhaustive reference detail.
-- Make pages discoverable through `docs/docs.json` navigation and concise root-relative links, except redirect-only pages and generated `plugins/reference/*` children unless explicitly required; keep examples runnable and generic.
+- For user-facing pages intended for navigation, add them to `docs/docs.json` and use concise root-relative links; keep redirect-only, generated `plugins/reference/*`, and hidden maintainer/historical `plan/*`, refactor, or spec pages out unless explicitly required. Keep examples runnable and generic.
 - Verify changed pages with the smallest applicable docs list, format, MDX, link, and glossary checks before handoff.
 
 ## Internal Docs
