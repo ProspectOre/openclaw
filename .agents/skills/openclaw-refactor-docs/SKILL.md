@@ -53,9 +53,13 @@ Prefer this split:
 
 ### 1. Load the doc standard
 
-Read `docs/AGENTS.md` first. Apply its page-type, style, examples, navigation,
-and verification guidance throughout the refactor. If a separate docs-publish
-checkout is available, consult its local guidance only after locating it.
+Read `.agents/skills/technical-documentation/SKILL.md` and its relevant
+references (`agent-and-contributing.md`, `principles.md`, and the build/review
+playbook) first, then read `docs/AGENTS.md` and apply its page-type, style,
+examples, navigation, and verification guidance throughout the refactor. The
+OpenClaw overlay in `references/openclaw.md` is applied after those general
+rules. If a separate docs-publish checkout is available, consult its local
+guidance only after locating it.
 
 Run `pnpm docs:list` when available, then read only the target page and the
 likely entry points, references, or related pages needed for the refactor.
