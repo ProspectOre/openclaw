@@ -61,6 +61,11 @@ OpenClaw overlay in `references/openclaw.md` is applied after those general
 rules. If a separate docs-publish checkout is available, consult its local
 guidance only after locating it.
 
+For this single-page workflow, scope the imported inventory, issue sweep, and
+repairs to the target page and directly affected links or moved material. Do not
+run a repository-wide governance/docs audit or fix unrelated defects; report
+those separately without expanding the requested refactor.
+
 Run `pnpm docs:list` when available, then read only the target page and the
 likely entry points, references, or related pages needed for the refactor.
 
