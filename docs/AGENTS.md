@@ -16,6 +16,13 @@ This directory owns docs authoring, Mintlify link rules, and docs i18n policy.
 - For docs, UI copy, and picker lists, order services/providers alphabetically unless the section is explicitly describing runtime order or auto-detection order.
 - Keep bundled plugin naming consistent with the repo-wide plugin terminology rules in the root `AGENTS.md`.
 
+## Page Standards
+
+- Classify each page as a topic, guide, reference, or troubleshooting page before editing.
+- Put the recommended path, safe setup, smallest reliable verification, and common failures before exhaustive reference detail.
+- Make pages discoverable through `docs/docs.json` navigation and concise root-relative links; keep examples runnable and generic.
+- Verify changed pages with the smallest applicable docs list, format, MDX, link, and glossary checks before handoff.
+
 ## Internal Docs
 
 - Long-lived private operator docs belong in `~/Projects/manager/docs/`.
